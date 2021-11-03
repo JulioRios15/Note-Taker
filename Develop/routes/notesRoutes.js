@@ -28,6 +28,8 @@ router.post('/', async (req, res) => {
 
     jsonDB.push(newNote);
     utils.updateDB(jsonDB);
+
+    res.status(201).json(jsonDB);
 });
 
 router.delete('/:id', (req, res) => {
