@@ -2,6 +2,8 @@ import express from "express";
 import http from 'http';
 import path from 'path';
 
+import noteRoutes from './routes/notesRoutes.js';
+
 const PORT = 3500;
 const __dirname = path.resolve(path.dirname(''));
 
@@ -12,14 +14,17 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-//Routes
+// Initial Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
   }); 
-   
+
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/notes.html"));
   });  
+
+//Note Routes
+app.use('/api/notes', noteRoutes);
 
 
 //Create the server
