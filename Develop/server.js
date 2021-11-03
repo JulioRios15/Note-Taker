@@ -5,7 +5,8 @@ import path from 'path';
 // Routes imports
 import noteRoutes from './routes/notesRoutes.js';
 
-const PORT = 3500;
+const PORT = process.env.PORT || 3500;
+
 const __dirname = path.resolve(path.dirname(''));
 
 // Initialize the server app
@@ -35,8 +36,4 @@ app.use('/api/notes', noteRoutes);
 const httpServer = http.createServer(app);
 
 //Start server
-httpServer.listen(PORT, 
-    async () => {
-    // Log to the console
-    console.log(`server running on port:${PORT}`);
-});
+httpServer.listen(PORT);
