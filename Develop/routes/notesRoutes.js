@@ -5,9 +5,8 @@ import utils from '../utils/utils.js'
 const router = express.Router();
 
 //Route requests
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const jsonDB = utils.getJsonDB();
-    console.log(jsonDB);
 
     if(jsonDB){
         return res.status(200).json(jsonDB);
@@ -19,12 +18,21 @@ router.get('/', (req, res) => {
     
 });
 
-router.post('/', (req, res) => {
-    console.log(req.body);
+router.post('/', async (req, res) => {
+    const {title, text} = req.body;
+    const jsonDB = utils.getJsonDB();
+    const newNote = {
+        title,
+        text
+    };
+
+    jsonDB.push(newNote);
+    utils.updateDB(jsonDB);
 });
 
 router.delete('/:id', (req, res) => {
-
+    const noteId = req.params.id;
+    console.log(noteId);
 });
 
 

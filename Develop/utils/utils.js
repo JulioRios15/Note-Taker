@@ -7,6 +7,13 @@ const getJsonDB = () => {
     return jsonData;
 }
 
+const updateDB = (data) => {
+    //TODO: Check first if db exist
+    const newData = JSON.stringify(data);
+    return fs.writeFileSync("db/db.json", newData);
+}
+
 export default {
-    getJsonDB
+    getJsonDB,
+    updateDB
 }
