@@ -13,11 +13,11 @@ const updateDB = (data) => {
     return fs.writeFileSync("db/db.json", newData);
 }
 
-const getIndexForId = (id, data) => {
+const getIndexForId = (idToFind, data) => {
 
     for (let i = 0; i < data.length; i++) {
-        if(data[i].id === id) return i;
-        
+        const currentNoteId = data[i].id;
+        if(currentNoteId === idToFind) return i;    
     }
 
     return null;

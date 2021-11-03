@@ -1,5 +1,5 @@
 import express from 'express';
-import utils from '../utils/utils.js';
+import database from '../utils/databse.js'
 import { v4 as uuidv4 } from 'uuid';
 
 //Initialize the router
@@ -7,7 +7,7 @@ const router = express.Router();
 
 //Route requests
 router.get('/', async (req, res) => {
-    const jsonDB = utils.getJsonDB();
+    const jsonDB = database.getJsonDB();
 
     if(jsonDB){
         return res.status(200).json(jsonDB);
@@ -20,8 +20,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    //Extract data from the body
     const {title, text} = req.body;
-    const jsonDB = utils.getJsonDB();
+
+    //Get database 
+    const jsonDB = database.getJsonDB();
+
+    //Create new note with requested body info
     const newNote = {
         id: uuidv4(),
         title,
@@ -29,7 +34,7 @@ router.post('/', async (req, res) => {
     };
 
     jsonDB.push(newNote);
-    utils.updateDB(jsonDB);
+    database.updateDB(jsonDB);
 
     res.status(201).json(jsonDB);
 });
@@ -40,8 +45,8 @@ router.delete('/:id', (req, res) => {
     const noteToDeleteIndex = utils.getIndexForId(noteId, jsonDB);
 
     jsonDB.splice(noteToDeleteIndex, 1);
-    
-    utils.updateDB(jsonDB);
+
+    database.updateDB(jsonDB);
 
     res.status(200).json(jsonDB)
 });
