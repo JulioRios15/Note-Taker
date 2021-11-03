@@ -1,5 +1,6 @@
 import express from 'express';
-import utils from '../utils/utils.js'
+import utils from '../utils/utils.js';
+import { v4 as uuidv4 } from 'uuid';
 
 //Initialize the router
 const router = express.Router();
@@ -22,6 +23,7 @@ router.post('/', async (req, res) => {
     const {title, text} = req.body;
     const jsonDB = utils.getJsonDB();
     const newNote = {
+        id: uuidv4(),
         title,
         text
     };
@@ -34,7 +36,14 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const noteId = req.params.id;
-    console.log(noteId);
+    const jsonDB = utils.getJsonDB(); 
+    const noteToDeleteIndex = utils.getIndexForId(noteId, jsonDB);
+
+    jsonDB.splice(noteToDeleteIndex, 1);
+    
+    utils.updateDB(jsonDB);
+
+    res.status(200).json(jsonDB)
 });
 
 
