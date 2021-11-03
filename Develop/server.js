@@ -12,6 +12,7 @@ const __dirname = path.resolve(path.dirname(''));
 const app = express();
 
 //Middlewares
+app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
