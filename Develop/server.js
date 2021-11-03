@@ -2,6 +2,7 @@ import express from "express";
 import http from 'http';
 import path from 'path';
 
+// Routes imports
 import noteRoutes from './routes/notesRoutes.js';
 
 const PORT = 3500;
@@ -15,10 +16,12 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 // Initial Routes
+//return index.html file
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
   }); 
 
+//return notes.html file
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/notes.html"));
   });  
