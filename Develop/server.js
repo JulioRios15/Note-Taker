@@ -14,6 +14,8 @@ const app = express();
 
 //Middlewares
 app.use(express.static('public'));
+app.use('/assets/css',express.static( __dirname + 'public/assets/css'));
+app.use('/assets/js',express.static(__dirname + 'public/assets/js'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
