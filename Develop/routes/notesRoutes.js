@@ -41,8 +41,8 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const noteId = req.params.id;
-    const jsonDB = utils.getJsonDB(); 
-    const noteToDeleteIndex = utils.getIndexForId(noteId, jsonDB);
+    const jsonDB = database.getJsonDB(); 
+    const noteToDeleteIndex = database.getIndexForId(noteId, jsonDB);
 
     jsonDB.splice(noteToDeleteIndex, 1);
 
